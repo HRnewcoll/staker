@@ -2,7 +2,7 @@
 
 // Live bets simulation
 const FAKE_USERS = ['CryptoKing', 'LuckyAce', 'DiamondHands', 'MoonShot', 'WhaleBet', 'StackSats', 'NightOwl', 'FastCash', 'BigWinner', 'RollHigh'];
-const FAKE_GAMES = ['Dice', 'Crash', 'Mines', 'Plinko', 'Wheel', 'Limbo', 'Slots', 'Roulette', 'Blackjack', 'Keno'];
+const FAKE_GAMES = ['Dice', 'Crash', 'Mines', 'Plinko', 'Wheel', 'Limbo', 'Slots', 'Roulette', 'Blackjack', 'Keno', 'Hilo', 'Dragon Tower', 'Video Poker', 'Baccarat'];
 let liveBets = [];
 
 function addLiveBet(game, amount, multiplier, win) {
@@ -57,6 +57,10 @@ const gameInitMap = {
   roulette: RouletteGame,
   blackjack: BlackjackGame,
   keno: KenoGame,
+  hilo: HiloGame,
+  dragontower: DragonTowerGame,
+  videopoker: VideoPokerGame,
+  baccarat: BaccaratGame,
 };
 const initializedGames = new Set();
 
@@ -119,11 +123,25 @@ function updateOnlineCount() {
   }
 }
 
+function setupGameSearch() {
+  const input = document.getElementById('gameSearch');
+  if (!input) return;
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    document.querySelectorAll('.game-card').forEach(card => {
+      const title = card.querySelector('.game-card-title');
+      const match = !q || (title && title.textContent.toLowerCase().includes(q));
+      card.style.display = match ? '' : 'none';
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   updateBalanceDisplay();
   setupSidebar();
   setupGameCards();
   setupQuickBtns();
+  setupGameSearch();
   simulateLiveBets();
   showView('lobby');
   setInterval(updateOnlineCount, 5000);
