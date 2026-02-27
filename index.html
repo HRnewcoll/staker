@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Staker — Crypto Casino</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <div class="logo">
+    <span class="logo-icon">♠</span>
+    <span>Sta<span>ker</span></span>
+  </div>
+  <div class="header-center">
+    <button class="nav-btn active" onclick="showView('lobby')">Casino</button>
+    <button class="nav-btn">Sports</button>
+    <button class="nav-btn">Live</button>
+  </div>
+  <div class="header-right">
+    <div class="balance-display">
+      <span class="balance-coin">🪙</span>
+      <span>$</span><span class="balance-amount" id="balanceAmount">1000.00</span>
+    </div>
+    <button class="header-btn secondary" id="resetBalanceBtn" title="Reset play money balance">↺ Reset</button>
+  </div>
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<nav class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Casino Home</div>
+    <div class="sidebar-item active" data-view="lobby">
+      <span class="game-icon">🏠</span> Lobby
+    </div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Staker Originals</div>
+    <div class="sidebar-item" data-view="dice"><span class="game-icon">🎲</span> Dice</div>
+    <div class="sidebar-item" data-view="crash"><span class="game-icon">📈</span> Crash</div>
+    <div class="sidebar-item" data-view="mines"><span class="game-icon">💣</span> Mines</div>
+    <div class="sidebar-item" data-view="plinko"><span class="game-icon">🎯</span> Plinko</div>
+    <div class="sidebar-item" data-view="wheel"><span class="game-icon">🎡</span> Wheel</div>
+    <div class="sidebar-item" data-view="limbo"><span class="game-icon">🚀</span> Limbo</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Table Games</div>
+    <div class="sidebar-item" data-view="blackjack"><span class="game-icon">🃏</span> Blackjack</div>
+    <div class="sidebar-item" data-view="roulette"><span class="game-icon">⚙️</span> Roulette</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">More Games</div>
+    <div class="sidebar-item" data-view="slots"><span class="game-icon">🎰</span> Slots</div>
+    <div class="sidebar-item" data-view="keno"><span class="game-icon">🔢</span> Keno</div>
+  </div>
+
+  <div class="sidebar-section" style="margin-top:16px; padding: 12px 16px; border-top:1px solid #2f4553;">
+    <div style="font-size:.72rem; color:#557086; margin-bottom:6px;">🟢 Online Now</div>
+    <div style="font-size:1.1rem; font-weight:800; color:#00e701;" id="onlineCount">12,847</div>
+    <div style="font-size:.7rem; color:#557086; margin-top:2px;">Play money only — no real crypto</div>
+  </div>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main">
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ===== LOBBY VIEW ===== -->
+  <div id="lobbyView" class="view active">
+    <div class="lobby-hero">
+      <div class="hero-text">
+        <h1>Play & Win Big 🎰</h1>
+        <p>All your favourite crypto casino games — Dice, Crash, Mines, Plinko and more. Completely free with play money.</p>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="value">$2.4B</div><div class="label">Total Wagered</div></div>
+        <div class="hero-stat"><div class="value" id="onlineCount2">12,847</div><div class="label">Online Now</div></div>
+        <div class="hero-stat"><div class="value">10</div><div class="label">Games</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">🎯 Staker Originals <span class="badge">HOT</span></div>
+    <div class="games-grid">
+      <div class="game-card" data-view="dice">
+        <div class="game-card-img dice-bg"><span class="original-tag">ORIGINAL</span>🎲</div>
+        <div class="game-card-info"><div class="game-card-title">Dice</div><div class="game-card-sub">Roll to win</div></div>
+      </div>
+      <div class="game-card" data-view="crash">
+        <div class="game-card-img crash-bg"><span class="original-tag">ORIGINAL</span>📈</div>
+        <div class="game-card-info"><div class="game-card-title">Crash</div><div class="game-card-sub">Cash out before crash</div></div>
+      </div>
+      <div class="game-card" data-view="mines">
+        <div class="game-card-img mines-bg"><span class="original-tag">ORIGINAL</span>💣</div>
+        <div class="game-card-info"><div class="game-card-title">Mines</div><div class="game-card-sub">Find the gems</div></div>
+      </div>
+      <div class="game-card" data-view="plinko">
+        <div class="game-card-img plinko-bg"><span class="original-tag">ORIGINAL</span>🎯</div>
+        <div class="game-card-info"><div class="game-card-title">Plinko</div><div class="game-card-sub">Drop & bounce</div></div>
+      </div>
+      <div class="game-card" data-view="wheel">
+        <div class="game-card-img wheel-bg"><span class="original-tag">ORIGINAL</span>🎡</div>
+        <div class="game-card-info"><div class="game-card-title">Wheel</div><div class="game-card-sub">Spin to win</div></div>
+      </div>
+      <div class="game-card" data-view="limbo">
+        <div class="game-card-img limbo-bg"><span class="original-tag">ORIGINAL</span>🚀</div>
+        <div class="game-card-info"><div class="game-card-title">Limbo</div><div class="game-card-sub">Set your target</div></div>
+      </div>
+    </div>
+
+    <div class="section-title">🃏 Table Games</div>
+    <div class="games-grid">
+      <div class="game-card" data-view="blackjack">
+        <div class="game-card-img blackjack-bg">🃏</div>
+        <div class="game-card-info"><div class="game-card-title">Blackjack</div><div class="game-card-sub">Beat the dealer</div></div>
+      </div>
+      <div class="game-card" data-view="roulette">
+        <div class="game-card-img roulette-bg">⚙️</div>
+        <div class="game-card-info"><div class="game-card-title">Roulette</div><div class="game-card-sub">European wheel</div></div>
+      </div>
+      <div class="game-card" data-view="slots">
+        <div class="game-card-img slots-bg">🎰</div>
+        <div class="game-card-info"><div class="game-card-title">Slots</div><div class="game-card-sub">Classic slots</div></div>
+      </div>
+      <div class="game-card" data-view="keno">
+        <div class="game-card-img keno-bg">🔢</div>
+        <div class="game-card-info"><div class="game-card-title">Keno</div><div class="game-card-sub">Pick your numbers</div></div>
+      </div>
+    </div>
+
+    <!-- Live Bets -->
+    <div class="live-bets">
+      <div class="live-bets-header">
+        <div class="live-dot"></div> Live Bets
+      </div>
+      <table class="bets-table">
+        <thead>
+          <tr>
+            <th>Player</th><th>Game</th><th>Bet</th><th>Multiplier</th><th>Profit</th>
+          </tr>
+        </thead>
+        <tbody id="liveBetsBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== DICE VIEW ===== -->
+  <div id="diceView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎲 Dice</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount <span>Balance: $<span id="diceBal"></span></span></div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="form-group">
+          <div class="form-label">Target</div>
+          <input type="number" id="diceTarget" class="form-input" value="50" min="2" max="98" step="0.01" />
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:12px;">
+          <button id="diceOverBtn" class="bet-btn active-mode" style="flex:1;background:#1a5f2a;color:#00e701;">Over</button>
+          <button id="diceUnderBtn" class="bet-btn" style="flex:1;background:#2f4553;color:#b1bad3;">Under</button>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Win Chance</span><span class="stat-value" id="diceChance">50.00%</span></div>
+        <div class="stat-row"><span class="stat-label">Multiplier</span><span class="stat-value green" id="diceMultiplier">1.9800x</span></div>
+        <div class="stat-row"><span class="stat-label">Payout</span><span class="stat-value" id="dicePayout">$1.98</span></div>
+        <button class="bet-btn" id="diceRollBtn" style="margin-top:16px;">Roll Dice</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Dice</h2>
+          <span style="font-size:.78rem;color:#557086">Provably Fair</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column; padding:32px;">
+          <div class="dice-roll-value" id="diceRollValue">—</div>
+          <div class="dice-display">
+            <div class="dice-slider-container">
+              <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#557086;margin-bottom:4px;">
+                <span>0</span><span id="diceTargetDisplay">50.00</span><span>100</span>
+              </div>
+              <div class="dice-track" id="diceTrack">
+                <div class="dice-track-win" id="diceTrackWin" style="width:50%;left:50%;"></div>
+                <div class="dice-track-marker" id="diceMarker" style="left:50%;"></div>
+              </div>
+            </div>
+            <div class="dice-stats">
+              <div class="dice-stat"><div class="val" id="diceChance2">50.00%</div><div class="lbl">Win Chance</div></div>
+              <div class="dice-stat"><div class="val" id="diceMultiplier2">1.9800x</div><div class="lbl">Multiplier</div></div>
+              <div class="dice-stat"><div class="val" id="dicePayout2">$1.98</div><div class="lbl">Payout</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CRASH VIEW ===== -->
+  <div id="crashView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>📈 Crash</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <button class="bet-btn" id="crashBetBtn">Place Bet</button>
+        <button class="bet-btn warning" id="crashCashBtn" style="margin-top:8px;" disabled>Cash Out</button>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">House Edge</span><span class="stat-value">3%</span></div>
+        <div class="stat-row"><span class="stat-label">Max Win</span><span class="stat-value green">∞</span></div>
+      </div>
+      <div class="game-display" style="flex-direction:column;">
+        <div class="game-display-header">
+          <h2>Crash</h2>
+          <span style="font-size:.78rem;color:#557086">Provably Fair</span>
+        </div>
+        <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
+          <div class="crash-canvas-wrap" style="position:relative;flex:1;">
+            <canvas id="crashCanvas" height="300" style="width:100%;"></canvas>
+            <div class="crash-multiplier-display" id="crashMultiplierDisplay">1.00x</div>
+          </div>
+          <div class="crash-history" id="crashHistory" style="margin-top:12px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MINES VIEW ===== -->
+  <div id="minesView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>💣 Mines</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" id="minesBetInput" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Mines <span id="minesCountLabel">5</span></div>
+          <input type="range" id="minesMineCount" min="1" max="24" value="5"
+                 oninput="document.getElementById('minesCountLabel').textContent=this.value"
+                 style="background:linear-gradient(to right, #f04444 0%, #f04444 var(--val,20%), #2f4553 var(--val,20%));" />
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Next Gem</span><span class="stat-value green" id="minesNextMulti">—</span></div>
+        <div class="stat-row"><span class="stat-label">Gems Found</span><span class="stat-value" id="minesGemsFound">0</span></div>
+        <div class="stat-row"><span class="stat-label">Current Multi</span><span class="stat-value green" id="minesMultiplier2">1.00x</span></div>
+        <button class="bet-btn" id="minesStartBtn" style="margin-top:16px;">Bet</button>
+        <button class="bet-btn warning" id="minesCashoutBtn" style="margin-top:8px;" disabled>
+          Cash Out <span id="minesCashoutAmount">-</span>
+        </button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Mines</h2>
+          <span style="font-size:.78rem;color:#557086">Provably Fair</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column;">
+          <div class="mines-multiplier" id="minesMultiplier">1.00x</div>
+          <div class="mines-grid" id="minesGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PLINKO VIEW ===== -->
+  <div id="plinkoView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎯 Plinko</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Risk Level</div>
+          <select id="plinkoRisk" class="form-input" style="background:#2f4553;color:#fff;">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Rows</span><span class="stat-value">12</span></div>
+        <div class="stat-row"><span class="stat-label">Max Multiplier</span><span class="stat-value green">29x</span></div>
+        <button class="bet-btn" id="plinkoBetBtn" style="margin-top:16px;">Drop Ball</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Plinko</h2>
+          <span style="font-size:.78rem;color:#557086">Provably Fair</span>
+        </div>
+        <div class="game-display-body" style="padding:0;">
+          <canvas id="plinkoCanvas" style="width:100%;max-width:500px;display:block;margin:0 auto;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WHEEL VIEW ===== -->
+  <div id="wheelView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎡 Wheel</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Segments</span><span class="stat-value">20</span></div>
+        <div class="stat-row"><span class="stat-label">Max Win</span><span class="stat-value green">10x</span></div>
+        <div class="stat-row"><span class="stat-label">Last Result</span><span class="stat-value" id="wheelResult">—</span></div>
+        <button class="bet-btn" id="wheelSpinBtn" style="margin-top:16px;">Spin</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>Wheel</h2></div>
+        <div class="game-display-body" style="flex-direction:column;align-items:center;">
+          <div class="wheel-container">
+            <div class="wheel-pointer"></div>
+            <canvas id="wheelCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LIMBO VIEW ===== -->
+  <div id="limboView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🚀 Limbo</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Target Multiplier</div>
+          <div class="input-row">
+            <input type="number" id="limboTarget" class="form-input" value="2" min="1.01" step="0.01" />
+            <span class="input-addon">x</span>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Win Chance</span><span class="stat-value" id="limboWinChance">49.50%</span></div>
+        <div class="stat-row"><span class="stat-label">Payout</span><span class="stat-value green" id="limboPayout">$1.98</span></div>
+        <button class="bet-btn" id="limboBetBtn" style="margin-top:16px;">Bet</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>Limbo</h2><span style="font-size:.78rem;color:#557086">Provably Fair</span></div>
+        <div class="game-display-body">
+          <div class="limbo-display">
+            <div class="limbo-value" id="limboValue">—</div>
+            <div class="limbo-label">Current Multiplier</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SLOTS VIEW ===== -->
+  <div id="slotsView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎰 Slots</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:.78rem;color:#557086;margin-bottom:6px;">Pay Table</div>
+        <div class="slots-payline" id="slotsPaytable"></div>
+        <button class="bet-btn" id="slotsSpinBtn" style="margin-top:16px;">Spin 🎰</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>Classic Slots</h2></div>
+        <div class="game-display-body">
+          <div class="slots-machine">
+            <div class="slots-reels">
+              <div class="reel-window" id="reel0">🍒</div>
+              <div class="reel-window" id="reel1">🍋</div>
+              <div class="reel-window" id="reel2">🍊</div>
+            </div>
+            <div id="slotsResult" style="text-align:center;font-size:1.1rem;font-weight:700;min-height:28px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ROULETTE VIEW ===== -->
+  <div id="rouletteView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>⚙️ Roulette</h3>
+        <div class="form-group">
+          <div class="form-label">Chip Value</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Total Bet</span><span class="stat-value" id="rouletteTotalBet">$0.00</span></div>
+        <div class="stat-row"><span class="stat-label">Last Number</span><span class="stat-value" id="rouletteResult">—</span></div>
+        <button class="bet-btn" id="rouletteSpinBtn" style="margin-top:16px;">Spin</button>
+        <button class="bet-btn secondary" id="rouletteClearBtn" style="margin-top:8px;background:#2f4553;color:#b1bad3;">Clear Bets</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>European Roulette</h2></div>
+        <div class="game-display-body" style="flex-direction:column;">
+          <canvas id="rouletteCanvas" style="margin-bottom:16px;"></canvas>
+          <div class="roulette-table" id="rouletteTable"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BLACKJACK VIEW ===== -->
+  <div id="blackjackView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🃏 Blackjack</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Blackjack Pays</span><span class="stat-value green">3:2</span></div>
+        <div class="stat-row"><span class="stat-label">Dealer Stands</span><span class="stat-value">Soft 17</span></div>
+        <div class="stat-row"><span class="stat-label">Decks</span><span class="stat-value">6</span></div>
+        <button class="bet-btn" id="bjStartBtn" style="margin-top:16px;">Deal</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>Blackjack</h2></div>
+        <div class="game-display-body">
+          <div class="blackjack-table">
+            <div class="bj-zone">
+              <div class="bj-zone-label">Dealer <span class="bj-score" id="dealerScore">0</span></div>
+              <div class="bj-cards" id="dealerHand"></div>
+            </div>
+            <div id="bjResult" class="bj-result-banner" style="display:none;"></div>
+            <div class="bj-zone" style="margin-top:16px;">
+              <div class="bj-zone-label">You <span class="bj-score" id="playerScore">0</span></div>
+              <div class="bj-cards" id="playerHand"></div>
+            </div>
+            <div class="bj-actions" id="bjActions" style="display:none;">
+              <button class="bj-btn hit" id="bjHit">Hit</button>
+              <button class="bj-btn stand" id="bjStand">Stand</button>
+              <button class="bj-btn double" id="bjDouble">Double</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== KENO VIEW ===== -->
+  <div id="kenoView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🔢 Keno</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Picks</span><span class="stat-value" id="kenoPickCount">0 picks</span></div>
+        <div class="stat-row"><span class="stat-label">Hits</span><span class="stat-value" id="kenoHits">—</span></div>
+        <div class="stat-row"><span class="stat-label">Multiplier</span><span class="stat-value green" id="kenoMulti">—</span></div>
+        <div class="divider"></div>
+        <div style="font-size:.78rem;color:#557086;margin-bottom:6px;">Pay Table</div>
+        <div class="slots-payline" id="kenoPaytable"></div>
+        <button class="bet-btn" id="kenoBetBtn" style="margin-top:16px;">Play</button>
+        <button class="bet-btn secondary" id="kenoClearBtn" style="margin-top:8px;background:#2f4553;color:#b1bad3;">Clear</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header"><h2>Keno</h2></div>
+        <div class="game-display-body" style="flex-direction:column;align-items:flex-start;">
+          <div class="keno-grid" id="kenoGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- Scripts -->
+<script src="js/balance.js"></script>
+<script src="js/games/dice.js"></script>
+<script src="js/games/crash.js"></script>
+<script src="js/games/mines.js"></script>
+<script src="js/games/plinko.js"></script>
+<script src="js/games/wheel.js"></script>
+<script src="js/games/limbo.js"></script>
+<script src="js/games/slots.js"></script>
+<script src="js/games/roulette.js"></script>
+<script src="js/games/blackjack.js"></script>
+<script src="js/games/keno.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
