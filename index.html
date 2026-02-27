@@ -45,12 +45,16 @@
     <div class="sidebar-item" data-view="plinko"><span class="game-icon">🎯</span> Plinko</div>
     <div class="sidebar-item" data-view="wheel"><span class="game-icon">🎡</span> Wheel</div>
     <div class="sidebar-item" data-view="limbo"><span class="game-icon">🚀</span> Limbo</div>
+    <div class="sidebar-item" data-view="hilo"><span class="game-icon">🎴</span> Hilo</div>
+    <div class="sidebar-item" data-view="dragontower"><span class="game-icon">🐉</span> Dragon Tower</div>
   </div>
 
   <div class="sidebar-section">
     <div class="sidebar-label">Table Games</div>
     <div class="sidebar-item" data-view="blackjack"><span class="game-icon">🃏</span> Blackjack</div>
     <div class="sidebar-item" data-view="roulette"><span class="game-icon">⚙️</span> Roulette</div>
+    <div class="sidebar-item" data-view="videopoker"><span class="game-icon">🂡</span> Video Poker</div>
+    <div class="sidebar-item" data-view="baccarat"><span class="game-icon">🎰</span> Baccarat</div>
   </div>
 
   <div class="sidebar-section">
@@ -80,11 +84,14 @@
       <div class="hero-stats">
         <div class="hero-stat"><div class="value">$2.4B</div><div class="label">Total Wagered</div></div>
         <div class="hero-stat"><div class="value" id="onlineCount2">12,847</div><div class="label">Online Now</div></div>
-        <div class="hero-stat"><div class="value">10</div><div class="label">Games</div></div>
+        <div class="hero-stat"><div class="value">14</div><div class="label">Games</div></div>
       </div>
     </div>
 
     <div class="section-title">🎯 Staker Originals <span class="badge">HOT</span></div>
+    <div class="game-search-wrap">
+      <input type="text" id="gameSearch" class="game-search" placeholder="🔍 Search games…" />
+    </div>
     <div class="games-grid">
       <div class="game-card" data-view="dice">
         <div class="game-card-img dice-bg"><span class="original-tag">ORIGINAL</span>🎲</div>
@@ -110,6 +117,14 @@
         <div class="game-card-img limbo-bg"><span class="original-tag">ORIGINAL</span>🚀</div>
         <div class="game-card-info"><div class="game-card-title">Limbo</div><div class="game-card-sub">Set your target</div></div>
       </div>
+      <div class="game-card" data-view="hilo">
+        <div class="game-card-img" style="background:linear-gradient(135deg,#1e2d3a,#0a1520);"><span class="original-tag">ORIGINAL</span>🎴</div>
+        <div class="game-card-info"><div class="game-card-title">Hilo</div><div class="game-card-sub">Higher or lower</div></div>
+      </div>
+      <div class="game-card" data-view="dragontower">
+        <div class="game-card-img" style="background:linear-gradient(135deg,#2a1a0a,#180a00);"><span class="original-tag">ORIGINAL</span>🐉</div>
+        <div class="game-card-info"><div class="game-card-title">Dragon Tower</div><div class="game-card-sub">Climb the tower</div></div>
+      </div>
     </div>
 
     <div class="section-title">🃏 Table Games</div>
@@ -129,6 +144,14 @@
       <div class="game-card" data-view="keno">
         <div class="game-card-img keno-bg">🔢</div>
         <div class="game-card-info"><div class="game-card-title">Keno</div><div class="game-card-sub">Pick your numbers</div></div>
+      </div>
+      <div class="game-card" data-view="videopoker">
+        <div class="game-card-img" style="background:linear-gradient(135deg,#1a2a1a,#0a150a);">🂡</div>
+        <div class="game-card-info"><div class="game-card-title">Video Poker</div><div class="game-card-sub">Jacks or Better</div></div>
+      </div>
+      <div class="game-card" data-view="baccarat">
+        <div class="game-card-img" style="background:linear-gradient(135deg,#2a1a2a,#150015);">🎴</div>
+        <div class="game-card-info"><div class="game-card-title">Baccarat</div><div class="game-card-sub">Player vs Banker</div></div>
       </div>
     </div>
 
@@ -575,6 +598,194 @@
     </div>
   </div>
 
+  <!-- ===== HILO VIEW ===== -->
+  <div id="hiloView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎴 Hilo</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Win Chance</span><span class="stat-value" id="hiloWinChance">—</span></div>
+        <div class="stat-row"><span class="stat-label">Next Multi</span><span class="stat-value green" id="hiloMultiplier">—</span></div>
+        <div class="stat-row"><span class="stat-label">Total Multi</span><span class="stat-value green" id="hiloTotalMulti">1.0000x</span></div>
+        <div class="stat-row"><span class="stat-label">Profit</span><span class="stat-value" id="hiloProfit">—</span></div>
+        <div class="divider"></div>
+        <button class="bet-btn" id="hiloDealBtn">Deal</button>
+        <button class="bet-btn warning" id="hiloCashBtn" style="margin-top:8px;" disabled>Cash Out</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Hilo</h2>
+          <span style="font-size:.78rem;color:#557086">Provably Fair</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column;gap:20px;">
+          <div class="hilo-card-display">
+            <div class="hilo-main-card" id="hiloCurrentCard">
+              <div class="playing-card card-back"></div>
+            </div>
+            <div class="hilo-btns">
+              <button class="hilo-btn high" id="hiloHighBtn" disabled>Higher</button>
+              <button class="hilo-btn skip" id="hiloSkipBtn" disabled>Skip</button>
+              <button class="hilo-btn low" id="hiloLowBtn" disabled>Lower</button>
+            </div>
+            <div class="hilo-history" id="hiloHistory"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DRAGON TOWER VIEW ===== -->
+  <div id="dragontowerView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🐉 Dragon Tower</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-label">Difficulty</div>
+          <select id="dtDifficulty" class="form-input" style="background:#2f4553;color:#fff;">
+            <option value="easy">Easy (3 cols / 1 dragon)</option>
+            <option value="medium">Medium (4 cols / 2 dragons)</option>
+            <option value="hard">Hard (5 cols / 3 dragons)</option>
+            <option value="expert">Expert (6 cols / 4 dragons)</option>
+          </select>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Current Multi</span><span class="stat-value green" id="dtCurrentMulti">1.0000x</span></div>
+        <div class="stat-row"><span class="stat-label">Next Multi</span><span class="stat-value green" id="dtNextMulti">—</span></div>
+        <div class="stat-row"><span class="stat-label">Rows Cleared</span><span class="stat-value" id="dtGemsFound">0</span></div>
+        <div class="divider"></div>
+        <button class="bet-btn" id="dtBetBtn">Bet</button>
+        <button class="bet-btn warning" id="dtCashBtn" style="margin-top:8px;" disabled>Cash Out</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Dragon Tower</h2>
+          <span style="font-size:.78rem;color:#557086">Avoid the Dragons</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column;align-items:center;padding:24px;">
+          <div class="tower-grid" id="dtGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== VIDEO POKER VIEW ===== -->
+  <div id="videopokerView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🂡 Video Poker</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:.78rem;color:#557086;margin-bottom:6px;">Pay Table</div>
+        <div id="vpPaytable" class="vp-paytable"></div>
+        <div class="divider"></div>
+        <button class="bet-btn" id="vpDealBtn">Deal</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Jacks or Better</h2>
+          <span style="font-size:.78rem;color:#557086">Video Poker</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column;gap:16px;">
+          <div class="vp-cards" id="vpHand"></div>
+          <div class="vp-hold-row" id="vpHoldRow"></div>
+          <div class="vp-result" id="vpResult"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BACCARAT VIEW ===== -->
+  <div id="baccaratView" class="view">
+    <div class="game-container">
+      <div class="game-panel bet-panel">
+        <h3>🎴 Baccarat</h3>
+        <div class="form-group">
+          <div class="form-label">Bet Amount</div>
+          <div class="input-row">
+            <span class="input-addon">$</span>
+            <input type="number" class="form-input bet-input" value="1.00" min="0.01" step="0.01" />
+          </div>
+          <div class="quick-btns">
+            <button class="quick-btn" data-action="min">Min</button>
+            <button class="quick-btn" data-action="½">½</button>
+            <button class="quick-btn" data-action="2x">2x</button>
+            <button class="quick-btn" data-action="max">Max</button>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:.78rem;color:#557086;margin-bottom:8px;">Choose Your Bet</div>
+        <div class="bac-bet-btns">
+          <button class="bac-bet-btn player" id="bacBetPlayer">👤 Player<br><small>1:1</small></button>
+          <button class="bac-bet-btn tie" id="bacBetTie">🤝 Tie<br><small>8:1</small></button>
+          <button class="bac-bet-btn banker" id="bacBetBanker">🏦 Banker<br><small>0.95:1</small></button>
+        </div>
+        <div class="divider"></div>
+        <div class="stat-row"><span class="stat-label">Selected Bet</span><span class="stat-value" id="bacSelectedBet">—</span></div>
+        <div class="stat-row"><span class="stat-label">House Edge</span><span class="stat-value">1.06%</span></div>
+        <button class="bet-btn" id="bacDealBtn" style="margin-top:16px;">Deal</button>
+      </div>
+      <div class="game-display">
+        <div class="game-display-header">
+          <h2>Baccarat</h2>
+          <span style="font-size:.78rem;color:#557086">Classic Table Game</span>
+        </div>
+        <div class="game-display-body" style="flex-direction:column;">
+          <div class="baccarat-table">
+            <div class="bac-hands">
+              <div class="bac-hand">
+                <div class="bac-hand-label">Player <span class="bac-score" id="bacPlayerScore">0</span></div>
+                <div class="bac-cards" id="bacPlayerHand"></div>
+              </div>
+              <div class="bac-hand">
+                <div class="bac-hand-label">Banker <span class="bac-score" id="bacBankerScore">0</span></div>
+                <div class="bac-cards" id="bacBankerHand"></div>
+              </div>
+            </div>
+            <div class="bac-result" id="bacResult"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <!-- Scripts -->
@@ -589,6 +800,10 @@
 <script src="js/games/roulette.js"></script>
 <script src="js/games/blackjack.js"></script>
 <script src="js/games/keno.js"></script>
+<script src="js/games/hilo.js"></script>
+<script src="js/games/dragontower.js"></script>
+<script src="js/games/videopoker.js"></script>
+<script src="js/games/baccarat.js"></script>
 <script src="js/main.js"></script>
 
 </body>
