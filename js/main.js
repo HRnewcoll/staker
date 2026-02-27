@@ -126,9 +126,10 @@ function updateOnlineCount() {
 function setupGameSearch() {
   const input = document.getElementById('gameSearch');
   if (!input) return;
+  const cards = document.querySelectorAll('.game-card');
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
-    document.querySelectorAll('.game-card').forEach(card => {
+    cards.forEach(card => {
       const title = card.querySelector('.game-card-title');
       const match = !q || (title && title.textContent.toLowerCase().includes(q));
       card.style.display = match ? '' : 'none';

@@ -61,7 +61,7 @@ const VideoPokerGame = (() => {
     // Jacks or Better: one pair of J, Q, K, or A
     if (counts[0] === 2) {
       const pairKey = Object.keys(rankCounts).find(r => rankCounts[r] === 2);
-      if (pairKey && RANK_VALUES[pairKey] >= 11) return 'Jacks or Better';
+      if (pairKey && parseInt(pairKey) >= 11) return 'Jacks or Better';
     }
     return null;
   }

@@ -37,7 +37,8 @@ const HiloGame = (() => {
     } else {
       favorable = RANKS.filter(r => RANK_VALUES[r] < currentVal).length * 4;
     }
-    const prob = Math.max(favorable / cardsLeft, 0.05);
+    const MIN_PROBABILITY = 0.05; // prevents division-by-zero and ensures reasonable multipliers
+    const prob = Math.max(favorable / cardsLeft, MIN_PROBABILITY);
     return parseFloat((0.99 / prob).toFixed(4));
   }
 
